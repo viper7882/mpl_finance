@@ -158,7 +158,7 @@ def _plot_day_summary(ax, quotes, ticksize=3,
     return lines
 
 
-def candlestick_ochl(ax, quotes, width=0.2, colorup='k', colordown='r',
+def candlestick_ochl(ax, quotes, width=0.2, linewidth=0.5, colorup='k', colordown='r',
                      alpha=1.0):
     """
     Plot the time, open, close, high, low as a vertical line ranging
@@ -192,12 +192,12 @@ def candlestick_ochl(ax, quotes, width=0.2, colorup='k', colordown='r',
         added and patches is a list of the rectangle patches added
 
     """
-    return _candlestick(ax, quotes, width=width, colorup=colorup,
+    return _candlestick(ax, quotes, width=width, linewidth=linewidth, colorup=colorup,
                         colordown=colordown,
                         alpha=alpha, ochl=True)
 
 
-def candlestick_ohlc(ax, quotes, width=0.2, colorup='k', colordown='r',
+def candlestick_ohlc(ax, quotes, width=0.2, linewidth=0.5, colorup='k', colordown='r',
                      alpha=1.0):
     """
     Plot the time, open, high, low, close as a vertical line ranging
@@ -231,12 +231,12 @@ def candlestick_ohlc(ax, quotes, width=0.2, colorup='k', colordown='r',
         added and patches is a list of the rectangle patches added
 
     """
-    return _candlestick(ax, quotes, width=width, colorup=colorup,
+    return _candlestick(ax, quotes, width=width, linewidth=linewidth, colorup=colorup,
                         colordown=colordown,
                         alpha=alpha, ochl=False)
 
 
-def _candlestick(ax, quotes, width=0.2, colorup='k', colordown='r',
+def _candlestick(ax, quotes, width=0.2, linewidth=0.5, colorup='k', colordown='r',
                  alpha=1.0, ochl=True):
     """
     Plot the time, open, high, low, close as a vertical line ranging
@@ -294,7 +294,7 @@ def _candlestick(ax, quotes, width=0.2, colorup='k', colordown='r',
         vline = Line2D(
             xdata=(t, t), ydata=(low, high),
             color=color,
-            linewidth=0.5,
+            linewidth=linewidth,
             antialiased=True,
         )
 
@@ -511,7 +511,7 @@ def plot_day_summary2_ohlc(ax, opens, highs, lows, closes, ticksize=4,
     return rangeCollection, openCollection, closeCollection
 
 
-def candlestick2_ochl(ax, opens, closes, highs, lows, width=4,
+def candlestick2_ochl(ax, opens, closes, highs, lows, width=4, linewidth=0.5, 
                       colorup='k', colordown='r',
                       alpha=0.75):
     """Represent the open, close as a bar line and high low range as a
@@ -547,12 +547,12 @@ def candlestick2_ochl(ax, opens, closes, highs, lows, width=4,
         (lineCollection, barCollection)
     """
 
-    return candlestick2_ohlc(ax, opens, highs, lows, closes, width=width,
+    return candlestick2_ohlc(ax, opens, highs, lows, closes, width=width, linewidth=linewidth,
                              colorup=colorup, colordown=colordown,
                              alpha=alpha)
 
 
-def candlestick2_ohlc(ax, opens, highs, lows, closes, width=4,
+def candlestick2_ohlc(ax, opens, highs, lows, closes, width=4, linewidth=0.5,
                       colorup='k', colordown='r',
                       alpha=0.75):
     """Represent the open, close as a bar line and high low range as a
@@ -610,8 +610,8 @@ def candlestick2_ohlc(ax, opens, highs, lows, closes, width=4,
               for open, close in zip(opens, closes)
               if open != -1 and close != -1]
 
-    useAA = 0,  # use tuple here
-    lw = 0.5,   # and here
+    useAA = 0,      # use tuple here
+    lw = linewidth, # and here
     rangeCollection = LineCollection(rangeSegments,
                                      colors=colors,
                                      linewidths=lw,
